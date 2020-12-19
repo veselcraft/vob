@@ -1,0 +1,40 @@
+{extends "../@layout.xml"}
+
+{block title}{$user->getName()}{/block}
+
+{block content}
+<div class="hero py-4">
+    <div class="container">
+        <div class="row row-fix mb-4">
+            <div class="col-profile-avatar">
+                <img src="{$user->getAvatarURL()}" alt="avatar" class="d-block rounded-circle" height="100" width="100">
+            </div>
+            <div class="col-sm-10">
+                <p class="h4">{$user->getName()}</p> 
+                {if !is_null($user->getBio())}<p>{$user->getBio()}</p>{/if}
+                {if $user->getGroup() == 0}
+                    <span class="badge bg-secondary text-white">{_group_user}</span>
+                {elseif $user->getGroup() == 1}
+                    <span class="badge bg-warning text-dark">{_group_moderator}</span>
+                {elseif $user->getGroup() == 2}
+                    <span class="badge bg-danger text-white">{_group_editor}</span>
+                {/if}
+            </div>
+        </div> 
+        <h2>Articles by this author</h2>
+        <div class="row m-2">
+        {foreach array_reverse(iterator_to_array($user->getArticles())) as $article}
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{$article->getTitle()}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{$article->getPublishDate()}</h6>
+                    <a href="/a{$article->getId()}" class="card-link">Read</a>
+                </div>
+                </div>
+            </div>
+        {/foreach}
+        </div>
+    </dev>
+</dev>
+{/block}

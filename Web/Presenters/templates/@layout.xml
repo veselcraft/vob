@@ -1,0 +1,107 @@
+<html n:if="!isset($parentModule) || substr($parentModule, 0, 21) === 'libchandler:absolute.'">
+    <head>
+        <title>
+            {ifset title}{include title} - {/ifset}{php echo VOB_ROOT_CONF['vob']['appearance']['name']}
+        </title>
+        <meta charset="utf-8" />
+        <link rel="shortcut icon" href="/assets/packages/static/{php echo CHANDLER_ROOT_CONF["rootApp"]}/img/icon.ico" />
+        <meta name="application-name" content="{php echo VOB_ROOT_CONF['vob']['appearance']['name']}" />
+        <meta n:ifset="$csrfToken" name="csrf" value="{$csrfToken}" />
+        <link rel="stylesheet" href="/assets/packages/static/{php echo CHANDLER_ROOT_CONF["rootApp"]}/js/node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/assets/packages/static/{php echo CHANDLER_ROOT_CONF["rootApp"]}/css/index.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    </head>
+    <body>
+        <nav class="navbar navbar-light bg-light navbar-expand-sm justify-content-between">
+            <div class="container">
+                <a class="navbar-brand" href="/">
+                    <img src="{php echo VOB_ROOT_CONF['vob']['appearance']['logo_url']}" width="30" alt="{php echo VOB_ROOT_CONF['vob']['appearance']['name']}" loading="{php echo VOB_ROOT_CONF['vob']['appearance']['name']}">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">{_home}</a>
+                    </li>
+                    <li n:if="VOB_ROOT_CONF['vob']['preferences']['badgemode']" class="nav-item">
+                        <a class="nav-link" href="/articles">{_articles}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/search">{_search}</a>
+                    </li>
+                    {foreach VOB_ROOT_CONF['vob']['preferences']['header']['links'] as $link}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{$link['url']}">{$link['caption']}</a>
+                    </li>
+                    {/foreach}
+                    </ul>
+                    <div class="d-flex">
+                        {ifset $thisUser}
+                            <!-- todo <div class="dropdown me-2">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownNotificationsButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {_notifications}
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownNotificationsButton">
+                                    <p class="text-centered">No notifications</p>
+                                </div>
+                            </div> -->
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {$thisUser->getName()}
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="/user{$thisUser->getId()}">{_profile}</a>
+                                    {if $thisUser->getGroup() == 2}
+                                        <a class="dropdown-item" href="/create">{_new_article}</a>
+                                        <a class="dropdown-item" href="#">{_drafts}</a>
+                                    {/if}
+                                    <a class="dropdown-item" href="/settings">{_settings}</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="/logout">{_log_out}</a>
+                                </div>
+                            </div>
+                        {else}
+                            <a href="/login" class="btn btn-outline-primary">{_sign_in}</a>
+                        {/ifset}
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div n:ifcontent>
+            {ifset $flashMessage}
+                <div class="hero py-2">
+                    <div class="container">
+                        <div class="alert alert-{$flashMessage->type}" role="alert">
+                            {$flashMessage->msg}
+                        </div>
+                    </div>
+                </div>
+            {/ifset}
+            {include content}
+            <div class="hero py-2">
+                <div class="container">
+                    <div class="float-right">
+                        <div class="dropup">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {_language}
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="/?lg=ru">Русский</a>
+                                <a class="dropdown-item" href="/?lg=en">English</a>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-secondary">Powered by <a href="https://github.com/veselcraft/vob">VOB</a>. {php echo str_replace('!year!', date('Y'), VOB_ROOT_CONF['vob']['appearance']['motd'])}</p>
+                    
+                </div>
+            </div>
+        </div>
+        <script src="/assets/packages/static/{php echo CHANDLER_ROOT_CONF["rootApp"]}/js/node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="/assets/packages/static/{php echo CHANDLER_ROOT_CONF["rootApp"]}/js/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="/assets/packages/static/{php echo CHANDLER_ROOT_CONF["rootApp"]}/js/main.js"></script>
+        {ifset footerScripts}{include footerScripts}{/ifset}
+    </body>
+</html>

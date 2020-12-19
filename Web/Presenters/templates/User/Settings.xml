@@ -1,0 +1,53 @@
+{extends "../@layout.xml"}
+
+{block title}Settings{/block}
+
+{block content}
+<div class="hero py-2">
+    <div class="container">
+        <h1>Settings</h1>
+        <form method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Main information</h4>
+                    <div class="form-group">
+                        <label for="name">Your name</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{$thisUser->getName()}">
+                    </div>
+                    <div class="form-group">
+                        <label for="bio">Bio</label>
+                        <textarea class="form-control" id="bio" name="bio" aria-describedby="bioHelp" rows="3" maxlength="280">{$thisUser->getBio()}</textarea>
+                        <small id="bioHelp" class="form-text text-muted">The maximum number of characters is 280</small>
+                    </div>
+                    <hr>
+                </div>
+                <div class="col-md-6">
+                    <h4>Change password</h4>
+                    <div class="form-group">
+                        <label for="old_password">Old password</label>
+                        <input type="password" class="form-control" id="old_password" name="old_password">
+                    </div>
+                    <div class="form-group">
+                        <label for="new_password">New password</label>
+                        <input type="password" class="form-control" id="new_password" name="new_password">
+                    </div>
+                    <div class="form-group">
+                        <label for="repeat_password">Repeat password</label>
+                        <input type="password" class="form-control" id="repeat_password" name="repeat_password">
+                    </div>
+                    <hr>
+                </div>
+                <div class="col-md-6">
+                    <h4>Avatar</h4>
+                    <div class="form-group">
+                        <label for="avatar">File</label>
+                        <input type="file" name="blob" accept="image/*" id="avatar" class="form-control-file">
+                    </div>
+                </div>
+            </div>
+            <br>
+            <input type="submit" class="btn btn-primary" value="Save">
+        </form>
+    </div>
+</div>
+{/block}

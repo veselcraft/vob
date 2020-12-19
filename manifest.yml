@@ -1,0 +1,6 @@
+name: "VOB"
+dscription: "Blog engine"
+author: "veselcraft"
+version: "1.0"
+
+init: "bootstrap.php"

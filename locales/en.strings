@@ -1,0 +1,41 @@
+"__locale" = "en_US.UTF-8;Eng";
+
+%{ Check for https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html %}
+
+%{ TimeDate %}
+"time_at_sp" = " at ";
+"time_just_now" = "just now";
+"time_exactly_five_minutes_ago" = "5 minutes ago";
+"time_minutes_ago" = "$1 minutes ago";
+"time_today" = "today";
+"time_yesterday" = "yesterday";
+
+
+%{ Header %}
+
+"home" = "Home";
+"search" = "Search";
+"articles" = "Articles";
+"notifications" = "Notifications";
+"sign_in" = "Sign in";
+
+%{ User Header menu %}
+
+"profile" = "Profile";
+"drafts" = "Drafts";
+"new_article" = "New article";
+"settings" = "Settings";
+"log_out" = "Log out";
+
+%{ Footer %}
+"language" = "Language";
+
+%{ User Page %}
+"group_user" = "User";
+"group_moderator" = "Moderator";
+"group_editor" = "Editor";
+
+%{ Errors %}
+"error_title_empty" = "Title cannot be empty.";
+"error_content_empty" = "Content cannot be empty.";
+"error_article_published" = "Your articles is published!";

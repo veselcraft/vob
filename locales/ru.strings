@@ -1,0 +1,36 @@
+"__locale" = "ru_RU.UTF-8;Rus";
+
+%{ Check for https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html %}
+
+%{ TimeDate %}
+"time_at_sp" = " в ";
+"time_just_now" = "только что";
+"time_exactly_five_minutes_ago" = "5 минут назад";
+"time_minutes_ago" = "$1 минут назад";
+"time_today" = "сегодня";
+"time_yesterday" = "вчера";
+
+
+%{ Header %}
+
+"home" = "Главная";
+"search" = "Поиск";
+"articles" = "Статьи";
+"notifications" = "Уведомления";
+"sign_in" = "Войти";
+
+%{ User Header menu %}
+
+"profile" = "Профиль";
+"drafts" = "Черновики";
+"new_article" = "Новая статья";
+"settings" = "Настройки";
+"log_out" = "Выйти";
+
+%{ Footer %}
+"language" = "Язык";
+
+%{ User Page %}
+"group_user" = "Пользователь";
+"group_moderator" = "Модератор";
+"group_editor" = "Редактор";

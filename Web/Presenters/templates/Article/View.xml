@@ -1,0 +1,28 @@
+{extends "../@layout.xml"}
+
+{block title}{$article->getTitle()}{/block}
+
+{block content}
+<div class="hero py-2">
+    <div class="container">
+        <h1>{$article->getTitle()}</h1>
+        <div class="d-flex">
+            <div class="p-1">
+                <a href="user{$author->getId()}">
+                    <img src="{$author->getAvatarURL()}" alt="avatar" class="d-block rounded-circle" height="25" width="25">
+                </a>
+            </div>
+            <div class="p-1">
+                <a href="user{$author->getId()}">{$author->getName()}</a>
+            </div>
+            <div class="p-1 text-black-50">
+                {$article->getPublishDate()}
+            </div>
+        </div>
+        <hr>
+        <div class="mt-3">
+            {$art_content|noescape}
+        </div>
+    </div>
+</div>
+{/block}
