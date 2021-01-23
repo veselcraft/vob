@@ -1,0 +1,19 @@
+vob:
+    debug: true
+    appearance:
+        name: "Veselcraft's Blog"
+        logo_url: "/img/vob_logo.svg"
+        motd: "Vladimir Barinov, !year!"
+    preferences:
+        standard_language: "ru"
+        comments_enabled: true
+        badgemode: false
+        header:
+            links:
+                - url: "https://youtube.com/veselcraft"
+                  caption: "YouTube"
+        uploads:
+            mode: "basic"
+    preview:
+        logo_url: "/img/vob_logo_white.png"
+        font_url: "/css/inter-font/inter.ttf"
