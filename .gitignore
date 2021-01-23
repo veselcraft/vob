@@ -1,0 +1,12 @@
+vendor
+vob.yml
+update.pid
+update.pid.old
+Web/static/js/node_modules
+Web/static/custom
+Web/static/custom/*
+
+tmp/*
+!tmp/.gitkeep
+storage/*
+!storage/.gitkeep
