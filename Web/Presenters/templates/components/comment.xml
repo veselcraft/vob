@@ -1,0 +1,15 @@
+<div class="d-flex">
+    <div class="p-1">
+        <a href="user{$comment->getUserId()}">
+            <img src="{$usersRepo->get($comment->getUserId())->getAvatarURL()}" alt="avatar" class="d-block rounded-circle" height="50" width="50">
+        </a>
+    </div>
+    <div class="p-1">
+        <div class="p-1">
+            <a href="user{$comment->getUserId()}">{$usersRepo->get($comment->getUserId())->getName()}</a>
+        </div>
+        <div class="p-1">
+            {$comment->getText()}
+        </div>
+    </div>
+</div>

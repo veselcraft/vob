@@ -1,0 +1,9 @@
+<div class="col-md-4 mb-3">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{$article->getTitle()}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{$article->getPublishDate()}</h6>
+            <a href="/a{$article->getId()}" class="card-link float-right">{_read}</a>
+        </div>
+    </div>
+</div>

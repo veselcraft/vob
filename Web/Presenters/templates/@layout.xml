@@ -81,6 +81,7 @@
                 </div>
             {/ifset}
             {include content}
+            <hr>
             <div class="hero py-2">
                 <div class="container">
                     <div class="float-right">

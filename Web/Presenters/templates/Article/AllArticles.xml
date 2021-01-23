@@ -7,18 +7,11 @@
     <div class="container">
         <h2>Articles</h2>
         <div class="row m-2">
-        {foreach array_reverse(iterator_to_array($article->getAllArticles())) as $article}
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">{$article->getTitle()}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{$article->getPublishDate()}</h6>
-                    <a href="/a{$article->getId()}" class="card-link">Read</a>
-                </div>
-                </div>
-            </div>
+        {foreach $articles as $article}
+            {include "../components/article_card.xml", article => $article}
         {/foreach}
         </div>
     </dev>
 </dev>
+{include "../components/paginator.xml", conf => $paginatorConf}
 {/block}

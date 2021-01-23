@@ -23,6 +23,25 @@
         <div class="mt-3">
             {$art_content|noescape}
         </div>
+        {if VOB_ROOT_CONF['vob']['preferences']['comments_enabled'] == true}
+            <hr>
+            <h2>{_comments}</h2>
+            {ifset $thisUser}
+                
+                {if $commentsCount == 0}
+                    <div class="alert alert-light">
+                        {_alert_no_one_published}
+                    </div>
+                {/if}
+            {else}
+                <div class="alert alert-danger">
+                    {_error_sign_in_to_comment}
+                </div>
+            {/ifset}
+            {foreach $comments as $comment}
+                {include "../components/comment.xml", comment => $comment}
+            {/foreach}
+        {/if}
     </div>
 </div>
 {/block}

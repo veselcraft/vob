@@ -26,15 +26,34 @@ class Articles
         return $this->toArticles($this->articles->get($id));
     }
 
-    function getAllArticles(): \Traversable
+    function getCountAllArticles(): int
     {
-        $result = $this->articles->where("deleted", 0)->where("draft", 0);
+        return sizeof($this->articles->where("deleted", 0)->where("draft", 0));
+    }
+
+    function getAllArticles(int $page = 1, ?int $perPage = NULL): \Traversable
+    {
+        $result = $this->articles->where("deleted", 0)->where("draft", 0)->order("date DESC")->page($page, $perPage ?? VOB_DEFAULT_PER_PAGE);
         return new Util\EntityStream("Article", $result);
     }
 
-    function getByUser(int $user): \Traversable
+    function getCountByUser(int $user): int
     {
-        $result = $this->articles->where("user", $user);
+        return sizeof($this->articles->where("user", $user)->where("deleted", 0)->where("draft", 0));
+    }
+
+    function getByUser(int $user, int $page = 1, ?int $perPage = NULL): \Traversable
+    {
+        $result = $this->articles->where("user", $user)->where("deleted", 0)->where("draft", 0)->order("date DESC")->page($page, $perPage ?? VOB_DEFAULT_PER_PAGE);
+        return new Util\EntityStream("Article", $result);
+    }
+
+    function find(string $query): \Traversable
+    {
+        $query   = "%$query%";
+        $perPage = $perPage ?? VOB_DEFAULT_PER_PAGE;
+        $result  = $this->articles->where("deleted", 0)->where("draft", 0)->where("CONCAT_WS(' ', title, content) LIKE ?", $query);
+        
         return new Util\EntityStream("Article", $result);
     }
     

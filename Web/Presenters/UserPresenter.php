@@ -1,6 +1,8 @@
 <?php declare(strict_types=1);
 namespace vob\Web\Presenters;
+use vob\Web\Models\Entities\Article;
 use vob\Web\Models\Repositories\Users;
+use vob\Web\Models\Repositories\Articles;
 
 final class UserPresenter extends VOBPresenter
 {
@@ -20,8 +22,17 @@ final class UserPresenter extends VOBPresenter
         if(!$user)
             $this->notFound();
         else 
+        {
             $this->template->user = $user;
-        
+            $this->template->count    = (new Articles)->getCountByUser($user->getId());
+            $this->template->articles = (new Articles)->getByUser($user->getId(), (int) ($_GET["p"] ?? 1));
+            $this->template->paginatorConf = (object) [
+            "count"   => $this->template->count,
+            "page"    => (int) ($_GET["p"] ?? 1),
+            "amount"  => sizeof($this->template->articles),
+            "perPage" => VOB_DEFAULT_PER_PAGE,
+        ];
+        }
     }
 
     private function checkURL(string $url): ?string
@@ -71,7 +82,11 @@ final class UserPresenter extends VOBPresenter
                 }   
             }
 
-            if(isset($_FILES["blob"])) {
+            /*
+             *  Avatar
+             */
+
+            if($_FILES["blob"]["error"] != 4) {
                 $user->setAvatar($_FILES["blob"]);
             }
 

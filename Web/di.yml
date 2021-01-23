@@ -4,7 +4,10 @@ services:
     - vob\Web\Presenters\UserPresenter
     - vob\Web\Presenters\ArticlePresenter
     - vob\Web\Presenters\BlobPresenter
+    - vob\Web\Presenters\SearchPresenter
     - vob\Web\Models\Entities\User
     - vob\Web\Models\Entities\Article
+    - vob\Web\Models\Entities\Comment
     - vob\Web\Models\Repositories\Users
     - vob\Web\Models\Repositories\Articles
+    - vob\Web\Models\Repositories\Comments

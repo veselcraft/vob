@@ -17,5 +17,7 @@ routes:
       handler: "Article->view"
     - url: "/articles"
       handler: "Article->allArticles"
+    - url: "/search"
+      handler: "Search->index"
     - url: "/blob_{text}/{text}.{text}"
       handler: "Blob->file"

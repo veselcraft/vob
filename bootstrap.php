@@ -113,6 +113,6 @@ return (function() {
         $ver = "Build 2";
 
     define("VOB_VERSION", "Quadrange ($ver)", false);
-    define("VOB_DEFAULT_PER_PAGE", 10, false);
+    define("VOB_DEFAULT_PER_PAGE", 12, false);
     define("__VOB_ERROR_CLOCK_IN_FUTURE", "Server clock error: FK1200-DTF", false);
 });

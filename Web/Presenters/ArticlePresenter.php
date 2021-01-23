@@ -1,8 +1,10 @@
 <?php declare(strict_types=1);
 namespace vob\Web\Presenters;
 use vob\Web\Models\Entities\Article;
+use vob\Web\Models\Entities\Comment;
 use vob\Web\Models\Repositories\Users;
 use vob\Web\Models\Repositories\Articles;
+use vob\Web\Models\Repositories\Comments;
 use \Parsedown;
 
 final class ArticlePresenter extends VOBPresenter
@@ -27,12 +29,28 @@ final class ArticlePresenter extends VOBPresenter
             $this->template->article = $article;
             $this->template->author = (new Users)->get($article->getUserId());
             $this->template->art_content = $parse->text($article->getContent());
+            $this->template->commentsCount = (new Comments)->getCommentsCountByTarget($article->getId());
+            $this->template->comments = (new Comments)->getCommentsByTarget($article->getId(), (int) ($_GET["p"] ?? 1));
+            $this->template->usersRepo = (new Users);
+            $this->template->paginatorConf = (object) [
+                "count"   => $this->template->commentsCount,
+                "page"    => (int) ($_GET["p"] ?? 1),
+                "amount"  => sizeof($this->template->comments),
+                "perPage" => VOB_DEFAULT_PER_PAGE,
+            ];
         }
     }
 
     function renderAllArticles(): void
     {
-        $this->template->article = $this->articles;
+        $this->template->count   = $this->articles->getCountAllArticles();
+        $this->template->articles = iterator_to_array($this->articles->getAllArticles((int) ($_GET["p"] ?? 1)));
+        $this->template->paginatorConf = (object) [
+            "count"   => $this->template->count,
+            "page"    => (int) ($_GET["p"] ?? 1),
+            "amount"  => sizeof($this->template->articles),
+            "perPage" => VOB_DEFAULT_PER_PAGE,
+        ];
     }
 
     function renderCreate(): void

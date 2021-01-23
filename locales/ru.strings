@@ -34,3 +34,21 @@
 "group_user" = "Пользователь";
 "group_moderator" = "Модератор";
 "group_editor" = "Редактор";
+
+%{ Errors %}
+"error_title_empty" = "Название не может быть пустым.";
+"error_content_empty" = "Текст не может быть пустым.";
+"error_article_published" = "Ваша статья опубликована!";
+"error_sign_in_to_comment" = "Чтобы публиковать комментарии, нужно войти в аккаунт.";
+
+%{ Alerts %}
+"alert_no_one_published" = "Никто пока ещё не оставил комментарий.";
+
+%{ Paginator %}
+"paginator_back" = "Назад";
+"paginator_page" = "Страница $1";
+"paginator_next" = "Вперёд";
+
+%{ Article %}
+"read" = "Читать";
+"comments" = "Комментарии";

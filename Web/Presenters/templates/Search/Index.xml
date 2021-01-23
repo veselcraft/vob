@@ -1,0 +1,29 @@
+{extends "../@layout.xml"}
+
+{block title}Search{/block}
+
+{block content}
+<div class="hero py-4">
+    <div class="container">
+        <form class="form-inline mx-auto" style="width: max-content;">
+            <input class="form-control mr-sm-2" name="query" type="text" placeholder="Search" value="{$query}">
+            <input class="form-control my-2 my-sm-0 btn-primary" type="submit" class="button" value="Search">
+        </form>
+    </div>
+</div>
+<div class="hero py-4">
+    <div class="container">
+        <div class="row m-2" n:if="is_array($iterator)">
+        {foreach $iterator as $article}
+            {include "../components/article_card.xml", article => $article}
+        {/foreach}
+        </div>
+    </div>
+</div>
+{include "../components/paginator.xml", conf => (object) [
+                        "page"    => $page,
+                        "count"   => $count,
+                        "amount"  => sizeof($iterator),
+                        "perPage" => $perPage ?? VOB_DEFAULT_PER_PAGE,
+                    ]}
+{/block}
