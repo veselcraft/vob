@@ -1,7 +1,8 @@
 {extends "../@layout.xml"}
 
 {block title}{$article->getTitle()}{/block}
-
+{block og-title}{$article->getTitle()}{/block}
+{block og-image}{$preview}{/block}
 {block content}
 <div class="hero py-2">
     <div class="container">
@@ -27,7 +28,6 @@
             <hr>
             <h2>{_comments}</h2>
             {ifset $thisUser}
-                
                 {if $commentsCount == 0}
                     <div class="alert alert-light">
                         {_alert_no_one_published}

@@ -2,9 +2,11 @@
 namespace vob\Web\Presenters;
 use vob\Web\Models\Entities\Article;
 use vob\Web\Models\Entities\Comment;
+use vob\Web\Models\Entities\Utils\Media;
 use vob\Web\Models\Repositories\Users;
 use vob\Web\Models\Repositories\Articles;
 use vob\Web\Models\Repositories\Comments;
+use Nette\Utils\Image;
 use \Parsedown;
 
 final class ArticlePresenter extends VOBPresenter
@@ -29,6 +31,38 @@ final class ArticlePresenter extends VOBPresenter
             $this->template->article = $article;
             $this->template->author = (new Users)->get($article->getUserId());
             $this->template->art_content = $parse->text($article->getContent());
+
+            /* Preview stuff */
+
+            $hash = md5($article->getTitle() 
+            . "vob" 
+            . $article->getId() 
+            . VOB_ROOT_CONF['vob']['preview']['logo_url'] 
+            . VOB_ROOT_CONF['vob']['appearance']['name']);
+
+
+            if(empty($article->getPreview()) || $article->getPreview() != $hash) {
+                // TODO: Parse dir to choose random image
+                $previewColors = array("red", "green", "blue");
+                $preview = Image::fromFile(VOB_ROOT . "/Web/static/img/preview/" . $previewColors[array_rand($previewColors)] . ".png");
+                $logo = Image::fromFile(VOB_ROOT . "/Web/static" . VOB_ROOT_CONF['vob']['preview']['logo_url']);
+                
+                $preview->filledRectangle(0, 0, 156, 136, Image::rgb(255, 255, 255, 127));
+                $logo->resize(75, 75);
+                $preview->place($logo, 50, 50);
+
+                $white = $preview->colorAllocate(255, 255, 255);
+                $font = VOB_ROOT . "/Web/static" . VOB_ROOT_CONF['vob']['preview']['font_url'];
+
+                $preview->ttfText(24, 0, 175, 100, $white, $font, VOB_ROOT_CONF['vob']['appearance']['name']);
+                $preview->ttfText(46, 0, 45, 200, $white, $font, wordwrap($article->getTitle(), 25));
+                $preview->save(Media::pathFromHash($hash, "jpg"));
+
+                $article->setPreview($hash);
+                $article->save();
+            }
+
+            $this->template->preview = Media::getURL($hash, "jpg");
             $this->template->commentsCount = (new Comments)->getCommentsCountByTarget($article->getId());
             $this->template->comments = (new Comments)->getCommentsByTarget($article->getId(), (int) ($_GET["p"] ?? 1));
             $this->template->usersRepo = (new Users);

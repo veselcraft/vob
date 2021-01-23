@@ -10,12 +10,25 @@
         <link rel="stylesheet" href="/assets/packages/static/{php echo CHANDLER_ROOT_CONF["rootApp"]}/js/node_modules/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="/assets/packages/static/{php echo CHANDLER_ROOT_CONF["rootApp"]}/css/index.css">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta property="og:site_name" content="{php echo VOB_ROOT_CONF['vob']['appearance']['name']}">
+        {ifset og-title}
+            <meta property="og:title" content="{include og-title}">
+        {/ifset}
+        {ifset og-image}
+            <meta property="og:image" content="{include og-image}">
+            <meta property="og:image:width" content="800">
+            <meta property="og:image:height" content="500">
+            <meta property="og:type" content="article">
+            <meta name="twitter:card" content="summary_large_image">
+            <meta name="twitter:image" content="{include og-image}">
+        {/ifset}
+        
     </head>
     <body>
         <nav class="navbar navbar-light bg-light navbar-expand-sm justify-content-between">
             <div class="container">
                 <a class="navbar-brand" href="/">
-                    <img src="{php echo VOB_ROOT_CONF['vob']['appearance']['logo_url']}" width="30" alt="{php echo VOB_ROOT_CONF['vob']['appearance']['name']}" loading="{php echo VOB_ROOT_CONF['vob']['appearance']['name']}">
+                    <img src="/assets/packages/static/{php echo CHANDLER_ROOT_CONF["rootApp"]}{php echo VOB_ROOT_CONF['vob']['appearance']['logo_url']}" width="30" alt="{php echo VOB_ROOT_CONF['vob']['appearance']['name']}" loading="{php echo VOB_ROOT_CONF['vob']['appearance']['name']}">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>

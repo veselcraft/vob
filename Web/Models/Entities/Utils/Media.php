@@ -14,7 +14,7 @@ class Media
 
     function pathFromHash(string $hash, string $fileExtension): string
     {
-        $dir = $this->getBaseDir() . substr($hash, 0, 2);
+        $dir = Media::getBaseDir() . substr($hash, 0, 2);
         if(!is_dir($dir))
             mkdir($dir);
         
