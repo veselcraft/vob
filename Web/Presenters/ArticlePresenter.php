@@ -55,7 +55,7 @@ final class ArticlePresenter extends VOBPresenter
                 $font = VOB_ROOT . "/Web/static" . VOB_ROOT_CONF['vob']['preview']['font_url'];
 
                 $preview->ttfText(24, 0, 175, 100, $white, $font, VOB_ROOT_CONF['vob']['appearance']['name']);
-                $preview->ttfText(46, 0, 75, 200, $white, $font, wordwrap($article->getTitle(), 25));
+                $preview->ttfText(46, 0, 45, 230, $white, $font, wordwrap($article->getTitle(), 25));
                 $preview->save(Media::pathFromHash($hash, "jpg"));
 
                 $article->setPreview($hash);
