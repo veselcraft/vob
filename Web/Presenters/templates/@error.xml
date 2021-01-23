@@ -1,0 +1,12 @@
+{extends "@layout.xml"}
+
+{block title}Page not found!{/block}
+
+{block content}
+<div class="hero py-2">
+    <div class="container">
+        <h1>Sorry, but that page wasn't found!</h1>
+        <a href="/">Go to the main page</a>
+    </div>
+</div>
+{/block}
