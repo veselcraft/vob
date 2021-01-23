@@ -108,7 +108,7 @@
                             </div>
                         </div>
                     </div>
-                    <p class="text-secondary">Powered by <a href="https://github.com/veselcraft/vob">VOB</a>. {php echo str_replace('!year!', date('Y'), VOB_ROOT_CONF['vob']['appearance']['motd'])}</p>
+                    <p class="text-secondary">Powered by <a href="https://github.com/veselcraft/vob">VOB</a>, version {php echo VOB_VERSION}. {php echo str_replace('!year!', date('Y'), VOB_ROOT_CONF['vob']['appearance']['motd'])}</p>
                     
                 </div>
             </div>
