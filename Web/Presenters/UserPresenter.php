@@ -95,4 +95,26 @@ final class UserPresenter extends VOBPresenter
             $this->flashFail("success", "Your settings was been saved.");
         }
     }
+
+    function renderDrafts(int $id): void
+    {
+        $this->assertUserLoggedIn();
+
+        $user = $this->users->get($id);
+
+        if(!$user || $this->user->identity->getId() != $user->getId())
+            $this->notFound();
+        else 
+        {
+            $this->template->user = $user;
+            $this->template->count    = (new Articles)->getDraftCountByUser($user->getId());
+            $this->template->articles = (new Articles)->getDraftByUser($user->getId(), (int) ($_GET["p"] ?? 1));
+            $this->template->paginatorConf = (object) [
+            "count"   => $this->template->count,
+            "page"    => (int) ($_GET["p"] ?? 1),
+            "amount"  => sizeof($this->template->articles),
+            "perPage" => VOB_DEFAULT_PER_PAGE,
+        ];
+        }
+    }
 }

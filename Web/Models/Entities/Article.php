@@ -45,6 +45,11 @@ class Article extends RowModel
         return $this->getRecord()->edited_date == 0 ? False : True;
     }
 
+    function isDraft(): bool 
+    {
+        return $this->getRecord()->draft == 0 ? False : True;
+    }
+
     function getPreview(): string
     {
         return $this->getRecord()->preview;

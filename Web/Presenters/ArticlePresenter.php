@@ -27,10 +27,21 @@ final class ArticlePresenter extends VOBPresenter
         if(!$article)
             $this->notFound();
         else  {
-            $parse = new Parsedown();
+            if($article->isDraft()) {
+                if(isset($this->user->identity)) {
+                    if($this->user->identity->getId() != $article->getUserId()) {
+                        $this->notFound();
+                    }else{
+                        $this->flash("info", tr("alert_this_is_draft"));
+                    }
+                }else{
+                    $this->notFound();
+                }
+            }
+
             $this->template->article = $article;
             $this->template->author = (new Users)->get($article->getUserId());
-            $this->template->art_content = $parse->text($article->getContent());
+            $this->template->art_content = (new Parsedown())->text($article->getContent());
 
             /* Preview stuff */
 

@@ -69,7 +69,7 @@
                                     <a class="dropdown-item" href="/user{$thisUser->getId()}">{_profile}</a>
                                     {if $thisUser->getGroup() == 2}
                                         <a class="dropdown-item" href="/create">{_new_article}</a>
-                                        <a class="dropdown-item" href="#">{_drafts}</a>
+                                        <a class="dropdown-item" href="/user{$thisUser->getId()}/drafts">{_drafts}</a>
                                     {/if}
                                     <a class="dropdown-item" href="/settings">{_settings}</a>
                                     <div class="dropdown-divider"></div>

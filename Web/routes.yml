@@ -9,6 +9,8 @@ routes:
       handler: "Login->logout"
     - url: "/user{num}"
       handler: "User->view"
+    - url: "/user{num}/drafts"
+      handler: "User->drafts"
     - url: "/settings"
       handler: "User->settings"
     - url: "/create"

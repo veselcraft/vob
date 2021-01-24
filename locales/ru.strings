@@ -40,9 +40,12 @@
 "error_content_empty" = "Текст не может быть пустым.";
 "error_article_published" = "Ваша статья опубликована!";
 "error_sign_in_to_comment" = "Чтобы публиковать комментарии, нужно войти в аккаунт.";
+"error_no_perm_to_view_drafts" = "У вас нет прав на просмотр черновиков этого пользователя.";
+"error_you_are_not_editor" = "Вы не редактор, чтобы выполнить это действие.";
 
 %{ Alerts %}
 "alert_no_one_published" = "Никто пока ещё не оставил комментарий.";
+"alert_this_is_draft" = "Эта статья является черновиком. Её, кроме вас, никто не видит.";
 
 %{ Paginator %}
 "paginator_back" = "Назад";

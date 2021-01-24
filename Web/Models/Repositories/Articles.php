@@ -48,6 +48,17 @@ class Articles
         return new Util\EntityStream("Article", $result);
     }
 
+    function getDraftCountByUser(int $user): int
+    {
+        return sizeof($this->articles->where("user", $user)->where("deleted", 0)->where("draft", 1));
+    }
+
+    function getDraftByUser(int $user, int $page = 1, ?int $perPage = NULL): \Traversable
+    {
+        $result = $this->articles->where("user", $user)->where("deleted", 0)->where("draft", 1)->order("date DESC")->page($page, $perPage ?? VOB_DEFAULT_PER_PAGE);
+        return new Util\EntityStream("Article", $result);
+    }
+
     function find(string $query): \Traversable
     {
         $query   = "%$query%";
