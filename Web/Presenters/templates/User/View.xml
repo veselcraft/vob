@@ -21,7 +21,7 @@
                 {/if}
             </div>
         </div> 
-        <h2>Articles by this author</h2>
+        <hr>
         <div class="row m-2">
         {foreach $articles as $article}
             {include "../components/article_card.xml", article => $article}
