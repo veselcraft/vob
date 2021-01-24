@@ -1,12 +1,12 @@
 {extends "../@layout.xml"}
 
-{block title}Articles{/block}
+{block title}{_articles}{/block}
 
 {block content}
 <div class="hero py-4">
     <div class="container">
-        <h2>Articles</h2>
-        <div class="row m-2">
+        <h2>{_articles}</h2>
+        <div class="row m-2 mt-4">
         {foreach $articles as $article}
             {include "../components/article_card.xml", article => $article}
         {/foreach}

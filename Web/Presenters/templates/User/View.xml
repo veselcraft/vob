@@ -22,7 +22,7 @@
             </div>
         </div> 
         <hr>
-        <div class="row m-2">
+        <div class="row m-2 mt-4">
         {foreach $articles as $article}
             {include "../components/article_card.xml", article => $article}
         {/foreach}
