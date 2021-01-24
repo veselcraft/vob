@@ -19,6 +19,12 @@
             <div class="p-1 text-black-50">
                 {$article->getPublishDate()}
             </div>
+            {if $article->getUserId() == $thisUser->getId() && $thisUser->getGroup() == 2}
+            <form action="/create" method="post">
+                <input type="hidden" name="id" value="{$article->getId()}">
+                <input type="submit" class="btn btn-outline-primary me-2" value="{_edit}">
+            </form>
+            {/if}
         </div>
         <hr>
         <div class="mt-3">

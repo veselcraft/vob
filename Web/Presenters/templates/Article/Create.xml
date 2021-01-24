@@ -11,17 +11,22 @@
     <div class="container">
         <form method="post">
             <div class="form-group">
-                <label for="title">Article title</label>
+                <label for="title">{_article_title}</label>
                 <input type="text" class="form-control" id="title" name="title" value="{ifset $art_title}{$art_title}{/ifset}">
             </div>
             <div class="form-group">
                 <textarea id="editor" rows="20" name="content">{ifset $art_content}{$art_content}{/ifset}</textarea>
             </div>
             <div class="form-group">
-                <div class="">
-                    <input type="submit" class="btn btn-outline-primary me-2" value="Publish">
-                    <input type="submit" class="btn btn-secondary" value="Save in Drafts">
+                {ifset $id}<span class="badge bg-danger text-white">{_edit}</span>{/ifset}
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="draft" value="1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        {_save_in_drafts}
+                    </label>
                 </div>
+                <input type="submit" class="btn btn-outline-primary me-2" name="check" value="{_publish}">
+                {ifset $id}<input type="hidden" name="id" value="{$id}">{/ifset}
             </div>
         </form>
     </dev>

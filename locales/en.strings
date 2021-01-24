@@ -44,6 +44,7 @@
 %{ Alerts %}
 "alert_no_one_published" = "Nobody has left a comment yet.";
 "alert_this_is_draft" = "This article is a draft. Nobody sees her, except you.";
+"alert_article_published_this_is_draft" = "Article is saved in your drafts. Nobody have access to it, expect you.";
 
 %{ Paginator %}
 "paginator_back" = "Back";
@@ -53,3 +54,9 @@
 %{ Article %}
 "read" = "Read";
 "comments" = "Comments";
+"edit" = "Edit";
+
+%{ Article editor %}
+"publish" = "Publish";
+"save_in_drafts" = "Save in drafts";
+"article_title" = "Article title";
