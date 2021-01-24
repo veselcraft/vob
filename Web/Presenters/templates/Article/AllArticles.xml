@@ -12,6 +12,6 @@
         {/foreach}
         </div>
     </dev>
-</dev>
+</div>
 {include "../components/paginator.xml", conf => $paginatorConf}
 {/block}
