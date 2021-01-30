@@ -40,11 +40,14 @@
 "error_sign_in_to_comment" = "To publish comments, you need to sign in.";
 "error_no_perm_to_view_drafts" = "You have no permission to view user's drafts.";
 "error_you_are_not_editor" = "You are not editor to do this action.";
+"error_invalid_captcha" = "Captcha you typed is incorrect.";
+"error_limit" = "Limit was exceeded.";
 
 %{ Alerts %}
 "alert_no_one_published" = "Nobody has left a comment yet.";
 "alert_this_is_draft" = "This article is a draft. Nobody sees her, except you.";
 "alert_article_published_this_is_draft" = "Article is saved in your drafts. Nobody have access to it, expect you.";
+"alert_comment_published" = "Your comment was been published.";
 
 %{ Paginator %}
 "paginator_back" = "Back";

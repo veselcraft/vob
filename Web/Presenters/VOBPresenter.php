@@ -65,6 +65,12 @@ abstract class VOBPresenter extends SimplePresenter
         }
     }
 
+    protected function assertCaptchaCheckPassed(): void
+    {
+        if(!check_captcha())
+            $this->flashFail("danger", tr('error_invalid_captcha'));
+    }
+
     function getTemplatingEngine(): TemplatingEngine
     {
         $latte = parent::getTemplatingEngine();

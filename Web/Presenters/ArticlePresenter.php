@@ -74,9 +74,10 @@ final class ArticlePresenter extends VOBPresenter
             }
 
             $this->template->preview = Media::getURL($hash, "jpg");
+            $this->template->usersRepo = (new Users);
+
             $this->template->commentsCount = (new Comments)->getCommentsCountByTarget($article->getId());
             $this->template->comments = (new Comments)->getCommentsByTarget($article->getId(), (int) ($_GET["p"] ?? 1));
-            $this->template->usersRepo = (new Users);
             $this->template->paginatorConf = (object) [
                 "count"   => $this->template->commentsCount,
                 "page"    => (int) ($_GET["p"] ?? 1),
@@ -89,7 +90,7 @@ final class ArticlePresenter extends VOBPresenter
     function renderAllArticles(): void
     {
         $this->template->count   = $this->articles->getCountAllArticles();
-        $this->template->articles = iterator_to_array($this->articles->getAllArticles((int) ($_GET["p"] ?? 1)));
+        $this->template->articles = $this->articles->getAllArticles((int) ($_GET["p"] ?? 1));
         $this->template->paginatorConf = (object) [
             "count"   => $this->template->count,
             "page"    => (int) ($_GET["p"] ?? 1),
@@ -164,5 +165,31 @@ final class ArticlePresenter extends VOBPresenter
                 $this->redirect("/articles", static::REDIRECT_TEMPORARY);
             }
         }
+    }
+
+    function renderComment(int $id): void
+    {
+        $this->assertUserLoggedIn();
+        $this->assertCaptchaCheckPassed();
+
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            if(!is_null($this->articles->get($id))) {
+                if (empty($this->postParam("comment")))
+                    $this->flashFail("danger", tr("error_content_empty"));
+                else if (sizeof($this->postParam("comment")) > VOB_ROOT_CONF['vob']['preferences']['comments_symbols_limit'])
+                    $this->flashFail("danger", tr("error_limit") . " (" . VOB_ROOT_CONF['vob']['preferences']['comments_symbols_limit'] . ")");
+                
+                $comment = new Comment;
+                $comment->setUser($this->user->identity->getId());
+                $comment->setPostid($id);
+                $comment->setDate(time());
+                $comment->setText($this->postParam("comment"));
+                $comment->setDeleted(0);
+                $comment->save();
+                $this->flashFail("success", tr("alert_comment_published"));
+            }
+        }else
+            $this->flashFail("danger", "Хакеры? Интересно");
+            // гагага это отсылка к овкк
     }
 }

@@ -10,9 +10,7 @@
 "time_today" = "сегодня";
 "time_yesterday" = "вчера";
 
-
 %{ Header %}
-
 "home" = "Главная";
 "search" = "Поиск";
 "articles" = "Статьи";
@@ -20,7 +18,6 @@
 "sign_in" = "Войти";
 
 %{ User Header menu %}
-
 "profile" = "Профиль";
 "drafts" = "Черновики";
 "new_article" = "Новая статья";
@@ -42,11 +39,14 @@
 "error_sign_in_to_comment" = "Чтобы публиковать комментарии, нужно войти в аккаунт.";
 "error_no_perm_to_view_drafts" = "У вас нет прав на просмотр черновиков этого пользователя.";
 "error_you_are_not_editor" = "Вы не редактор, чтобы выполнить это действие.";
+"error_invalid_captcha" = "Captcha you typed is incorrect.";
+"error_limit" = "Превышен лимит.";
 
 %{ Alerts %}
 "alert_no_one_published" = "Никто пока ещё не оставил комментарий.";
 "alert_this_is_draft" = "Эта статья является черновиком. Её, кроме вас, никто не видит.";
 "alert_article_published_this_is_draft" = "Статья сохранена в ваши черновики. Никто, кроме вас, не имеет доступа к ней.";
+"alert_comment_published" = "Комментарий опубликован.";
 
 %{ Paginator %}
 "paginator_back" = "Назад";

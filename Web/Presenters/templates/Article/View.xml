@@ -22,7 +22,7 @@
             {if isset($thisUser) && $article->getUserId() == $thisUser->getId() && $thisUser->getGroup() == 2}
             <form action="/create" method="post">
                 <input type="hidden" name="id" value="{$article->getId()}">
-                <input type="submit" class="btn btn-outline-primary me-2" value="{_edit}">
+                <input type="submit" class="btn btn-outline-primary btn-sm me-2" value="{_edit}">
             </form>
             {/if}
         </div>
@@ -34,6 +34,16 @@
             <hr>
             <h2>{_comments}</h2>
             {ifset $thisUser}
+                <div class="form-group">
+                    <form action="/a{$article->getId()}/mcomment" method="post">
+                        <textarea class="form-control mb-3" name="comment" maxlength="{php echo VOB_ROOT_CONF['vob']['preferences']['comments_symbols_limit']}"></textarea>
+                        
+                        <h5>Captcha</h5>
+                        {captcha_template()|noescape}
+                        <br>
+                        <input class="btn btn-primary mt-3" value="{_publish}" type="submit">
+                    </form>
+                </div>
                 {if $commentsCount == 0}
                     <div class="alert alert-light">
                         {_alert_no_one_published}
@@ -47,6 +57,7 @@
             {foreach $comments as $comment}
                 {include "../components/comment.xml", comment => $comment}
             {/foreach}
+            {include "../components/paginator.xml", conf => $paginatorConf}
         {/if}
     </div>
 </div>

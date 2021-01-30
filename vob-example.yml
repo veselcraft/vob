@@ -7,6 +7,7 @@ vob:
     preferences:
         standard_language: "ru"
         comments_enabled: true
+        comments_symbols_limit: 280
         badgemode: false
         header:
             links:

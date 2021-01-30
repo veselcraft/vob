@@ -17,6 +17,8 @@ routes:
       handler: "Article->create"
     - url: "/a{num}"
       handler: "Article->view"
+    - url: "/a{num}/mcomment"
+      handler: "Article->comment"
     - url: "/articles"
       handler: "Article->allArticles"
     - url: "/search"

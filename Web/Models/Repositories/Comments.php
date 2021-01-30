@@ -31,7 +31,7 @@ class Comments
         $comments = $this->comments->where([
             "postid"  => $postid,
             "deleted" => false,
-        ])->page($page, $perPage ?? VOB_DEFAULT_PER_PAGE);
+        ])->order("date DESC")->page($page, $perPage ?? VOB_DEFAULT_PER_PAGE);
         
         return new Util\EntityStream("Comment", $comments);
     }
