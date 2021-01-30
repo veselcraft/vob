@@ -19,7 +19,7 @@
             <div class="p-1 text-black-50">
                 {$article->getPublishDate()}
             </div>
-            <form n:if="if isset($thisUser) && $article->getUserId() == $thisUser->getId() && $thisUser->getGroup() == 2" action="/create" method="post">
+            <form n:if="isset($thisUser) && $article->getUserId() == $thisUser->getId() && $thisUser->getGroup() == 2" action="/create" method="post">
                 <input type="hidden" name="id" value="{$article->getId()}">
                 <input type="submit" class="btn btn-outline-primary btn-sm me-2" value="{_edit}">
             </form>
