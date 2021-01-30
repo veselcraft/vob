@@ -188,8 +188,8 @@ final class ArticlePresenter extends VOBPresenter
                 $comment->save();
                 $this->flashFail("success", tr("alert_comment_published"));
             }
-        }else
+        } else {
             $this->flashFail("danger", "Хакеры? Интересно");
-            // гагага это отсылка к овкк
+        }   // гагага это отсылка к овкк
     }
 }
