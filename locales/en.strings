@@ -33,6 +33,11 @@
 "group_moderator" = "Moderator";
 "group_editor" = "Editor";
 
+%{ Login Page %}
+"name" = "Имя";
+"password" = "Пароль";
+"password_again" = "Ещё раз пароль";
+
 %{ Errors %}
 "error_title_empty" = "Title cannot be empty.";
 "error_content_empty" = "Content cannot be empty.";
@@ -42,6 +47,8 @@
 "error_you_are_not_editor" = "You are not editor to do this action.";
 "error_invalid_captcha" = "Captcha you typed is incorrect.";
 "error_limit" = "Limit was exceeded.";
+"error_email_not_correct" = "Incorrect Email";
+"error_user_registred" = "User with this Email is already exist";
 
 %{ Alerts %}
 "alert_no_one_published" = "Nobody has left a comment yet.";

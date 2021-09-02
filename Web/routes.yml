@@ -5,6 +5,8 @@ routes:
       handler: "About->index"
     - url: "/login"
       handler: "Login->login"
+    - url: "/reg"
+      handler: "Login->registration"
     - url: "/logout"
       handler: "Login->logout"
     - url: "/user{num}"

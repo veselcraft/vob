@@ -16,6 +16,7 @@
 "articles" = "Статьи";
 "notifications" = "Уведомления";
 "sign_in" = "Войти";
+"sign_up" = "Регистрация";
 
 %{ User Header menu %}
 "profile" = "Профиль";
@@ -32,6 +33,11 @@
 "group_moderator" = "Модератор";
 "group_editor" = "Редактор";
 
+%{ Login Page %}
+"name" = "Имя";
+"password" = "Пароль";
+"password_again" = "Ещё раз пароль";
+
 %{ Errors %}
 "error_title_empty" = "Название не может быть пустым.";
 "error_content_empty" = "Текст не может быть пустым.";
@@ -39,8 +45,10 @@
 "error_sign_in_to_comment" = "Чтобы публиковать комментарии, нужно войти в аккаунт.";
 "error_no_perm_to_view_drafts" = "У вас нет прав на просмотр черновиков этого пользователя.";
 "error_you_are_not_editor" = "Вы не редактор, чтобы выполнить это действие.";
-"error_invalid_captcha" = "Captcha you typed is incorrect.";
+"error_invalid_captcha" = "Captcha, которую вы ввели, неверная.";
 "error_limit" = "Превышен лимит.";
+"error_email_not_correct" = "Некорректный Email";
+"error_user_registred" = "Пользователь с таким Email уже зарегистрирован";
 
 %{ Alerts %}
 "alert_no_one_published" = "Никто пока ещё не оставил комментарий.";

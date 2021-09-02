@@ -77,7 +77,8 @@
                                 </div>
                             </div>
                         {else}
-                            <a href="/login" class="btn btn-outline-primary">{_sign_in}</a>
+                            <a href="/login" class="btn btn-outline-primary mr-2">{_sign_in}</a>
+                            <a href="/reg" class="btn btn-primary">{_sign_up}</a>
                         {/ifset}
                     </div>
                 </div>

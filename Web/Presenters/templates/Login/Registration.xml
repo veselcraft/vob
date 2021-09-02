@@ -1,0 +1,33 @@
+{extends "../@layout.xml"}
+
+{block title}{_sign_up}{/block}
+
+{block content}
+<div class="hero py-2">
+    <div class="container">
+        <h1>{_sign_up}</h1>
+        <form method="post">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" name="email" aria-describedby="emailHelp" required>
+            </div>
+            <div class="form-group">
+                <label for="name">{_name}</label>
+                <input type="text" class="form-control" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="password">{_password}</label>
+                <input type="password" class="form-control" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="password-again">{_password_again}</label>
+                <input type="password" class="form-control" name="password" required>
+            </div>
+            <div class="form-group">
+                {captcha_template()|noescape}
+            </div>
+            <button type="submit" class="btn btn-primary">{_sign_up}</button>
+        </form>
+    </div>
+</div>
+{/block}

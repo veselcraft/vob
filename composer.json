@@ -2,14 +2,14 @@
     "require": {
         "guzzlehttp/guzzle": "^6.5",
         "komeiji-satori/curl": "dev-master",
-        "whichbrowser/parser": "dev-master",
         "james-heinrich/getid3": "^1.9@dev",
         "rybakit/msgpack": "dev-master",
         "wapmorgan/binary-stream": "dev-master",
         "netcarver/textile": "^3.7@dev",
         "al/emoji-detector": "dev-master",
         "kartik-v/krajee-markdown-editor": "dev-master",
-        "erusev/parsedown": "dev-master"
+        "erusev/parsedown": "dev-master",
+        "phpmailer/phpmailer": "dev-master"
     },
     "minimum-stability": "dev"
 }

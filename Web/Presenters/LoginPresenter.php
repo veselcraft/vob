@@ -35,14 +35,16 @@ final class LoginPresenter extends VOBPresenter
         return checkdnsrr($domain, "MX");
     }
 
-    /* function renderRegistration(): void
+    function renderRegistration(): void
     {
         if(!is_null($this->user))
             $this->redirect("/", static::REDIRECT_TEMPORARY);
+
+        $this->assertCaptchaCheckPassed();
         
         if($_SERVER["REQUEST_METHOD"] === "POST") {
             if(!$this->emailValid($this->postParam("email")))
-                $this->flashFail("danger", "Your Email are not correct.");
+                $this->flashFail("danger", tr("error_email_not_correct"));
             
             $chUser = ChandlerUser::create($this->postParam("email"), $this->postParam("password"));
             if(!$chUser)
@@ -50,15 +52,16 @@ final class LoginPresenter extends VOBPresenter
 
             $user = new User;
             $user->setUser($chUser->getId());
-            $user->setName($this->postParam("nickname"));
-            $user->setSince(time());
+            $user->setName($this->postParam("name"));
+            if (VOB_ROOT_CONF['vob']['preferences']['use_email'])
+                $user->setConfirm(bin2hex(random_bytes(32)));
             $user->save();
             
             $this->authenticator->authenticate($chUser->getId());
             $this->flash("success", "Registration is done!");
             $this->redirect("/", static::REDIRECT_TEMPORARY);
         }
-    } */
+    }
     
     function renderLogin(): void
     {
