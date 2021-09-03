@@ -34,9 +34,9 @@
 "group_editor" = "Editor";
 
 %{ Login Page %}
-"name" = "Имя";
-"password" = "Пароль";
-"password_again" = "Ещё раз пароль";
+"name" = "Name";
+"password" = "Password";
+"password_again" = "Password again";
 
 %{ Errors %}
 "error_title_empty" = "Title cannot be empty.";
