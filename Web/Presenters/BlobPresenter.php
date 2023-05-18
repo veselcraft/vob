@@ -52,30 +52,34 @@ final class BlobPresenter extends VOBPresenter
 
         $this->assertUserLoggedIn();
     
-        if($_SERVER["REQUEST_METHOD"] === "POST") {
-            if(!isset($_FILES["blob"]))
-                throw new ISE("Не выбран файл");
+        if($this->user->identity->mayWriteAccessToArticles()) {
+            if($_SERVER["REQUEST_METHOD"] === "POST") {
+                if(!isset($_FILES["blob"]))
+                    throw new ISE("Не выбран файл");
 
-            if($_FILES["blob"]["error"] == 1)
-                throw new ISE("Файл повреждён");
+                if($_FILES["blob"]["error"] == 1)
+                    throw new ISE("Файл повреждён");
 
-            bdump($_FILES["blob"]);
+                bdump($_FILES["blob"]);
 
-            $hash = hash_file("whirlpool", $_FILES["blob"]['tmp_name']);
-            
-            $image = new \Imagick;
-            $image->readImage($_FILES["blob"]['tmp_name']);
-            $h = $image->getImageHeight();
-            $w = $image->getImageWidth();
-            if(($h >= ($w * 7)) || ($w >= ($h * 7)))
-                throw new ISE("Invalid layout: image is too wide/short");
-            $sizes = Image::calculateSize(
-                $image->getImageWidth(), $image->getImageHeight(), 8192, 4320, Image::SHRINK_ONLY | Image::FIT
-            );
+                $hash = hash_file("whirlpool", $_FILES["blob"]['tmp_name']);
+                
+                $image = new \Imagick;
+                $image->readImage($_FILES["blob"]['tmp_name']);
+                $h = $image->getImageHeight();
+                $w = $image->getImageWidth();
+                if(($h >= ($w * 7)) || ($w >= ($h * 7)))
+                    throw new ISE("Invalid layout: image is too wide/short");
+                $sizes = Image::calculateSize(
+                    $image->getImageWidth(), $image->getImageHeight(), 8192, 4320, Image::SHRINK_ONLY | Image::FIT
+                );
 
-            $image->resizeImage($sizes[0], $sizes[1], \Imagick::FILTER_HERMITE, 1);
-            $image->writeImage($this->pathFromHash($hash));
-            exit((new Media)->getURL($hash, "jpg"));
+                $image->resizeImage($sizes[0], $sizes[1], \Imagick::FILTER_HERMITE, 1);
+                $image->writeImage($this->pathFromHash($hash));
+                exit((new Media)->getURL($hash, "jpg"));
+            }
+        } else {
+            $this->flashFail("error", "You don't have access to edit or create articles");
         }
     }
 }

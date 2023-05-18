@@ -101,69 +101,75 @@ final class ArticlePresenter extends VOBPresenter
 
     function renderCreate(): void
     {
-        if(!empty($this->postParam("id"))) {
-            $article = $this->articles->get(intval($this->postParam("id")));
+        $this->assertUserLoggedIn();
 
-            $this->template->art_title = $article->getTitle();
-            $this->template->art_content = $article->getContent();
-            $this->template->id = $this->postParam("id");
-        }
-
-        if(!empty($this->postParam("check")) && $_SERVER["REQUEST_METHOD"] == "POST") {
-
-            if(!is_null($this->user))
-                if($this->user->identity->getGroup() != 2)
-                    $this->redirect("/", static::REDIRECT_TEMPORARY);
-
-            $this->template->art_title = $this->postParam("title");
-            $this->template->art_content = $this->postParam("content");
-            
-            if (empty($this->postParam("title")))
-                $this->flashFail("danger", tr("error_title_empty"));
-
-            if (empty($this->postParam("content")))
-                $this->flashFail("danger", tr("error_content_empty"));
-
-            $isDraft = $this->postParam("draft") == "1" ? true : false;
-
-            $isEdit = !empty($this->postParam("id"));
-
-            if($isEdit){
+        if($this->user->identity->mayWriteAccessToArticles()) {
+            if(!empty($this->postParam("id"))) {
                 $article = $this->articles->get(intval($this->postParam("id")));
 
-                if($article->getUserId() != $this->user->identity->getId() && $this->user->identity->getGroup() != 2)
-                    $this->flashError("danger", tr("error_you_are_not_editor"));
-            }else{
-                $article = new Article;
+                $this->template->art_title = $article->getTitle();
+                $this->template->art_content = $article->getContent();
+                $this->template->id = $this->postParam("id");
             }
-            $article->setUser($this->user->identity->getId());
-            $article->setTitle($this->postParam("title"));
-            $article->setContent($this->postParam("content"));
 
-            if($isEdit) {
-                if(!$isDraft && $article->isDraft())
+            if(!empty($this->postParam("check")) && $_SERVER["REQUEST_METHOD"] == "POST") {
+
+                if(!is_null($this->user))
+                    if($this->user->identity->getGroup() != 2)
+                        $this->redirect("/", static::REDIRECT_TEMPORARY);
+
+                $this->template->art_title = $this->postParam("title");
+                $this->template->art_content = $this->postParam("content");
+                
+                if (empty($this->postParam("title")))
+                    $this->flashFail("danger", tr("error_title_empty"));
+
+                if (empty($this->postParam("content")))
+                    $this->flashFail("danger", tr("error_content_empty"));
+
+                $isDraft = $this->postParam("draft") == "1" ? true : false;
+
+                $isEdit = !empty($this->postParam("id"));
+
+                if($isEdit){
+                    $article = $this->articles->get(intval($this->postParam("id")));
+
+                    if($article->getUserId() != $this->user->identity->getId() && $this->user->identity->getGroup() != 2)
+                        $this->flashError("danger", tr("error_you_are_not_editor"));
+                }else{
+                    $article = new Article;
+                }
+                $article->setUser($this->user->identity->getId());
+                $article->setTitle($this->postParam("title"));
+                $article->setContent($this->postParam("content"));
+
+                if($isEdit) {
+                    if(!$isDraft && $article->isDraft())
+                        $article->setDate(time());
+                    else
+                        $article->setEdited_date(time());
+                } else
                     $article->setDate(time());
+
+                $article->setDeleted(0);
+
+                if($isDraft) 
+                    $article->setDraft(1);
                 else
-                    $article->setEdited_date(time());
-            } else
-                $article->setDate(time());
-
-            $article->setDeleted(0);
-
-            if($isDraft) 
-                $article->setDraft(1);
-            else
-                $article->setDraft(0);
-            
-            $article->save();
-            
-            if($isDraft){
-                $this->flash("success", tr("alert_article_published_this_is_draft"));
-                $this->redirect("/user" . $this->user->identity->getId() . "/drafts", static::REDIRECT_TEMPORARY);
-            }else{
-                $this->flash("success", tr("error_article_published"));
-                $this->redirect("/articles", static::REDIRECT_TEMPORARY);
+                    $article->setDraft(0);
+                
+                $article->save();
+                
+                if($isDraft){
+                    $this->flash("success", tr("alert_article_published_this_is_draft"));
+                    $this->redirect("/user" . $this->user->identity->getId() . "/drafts", static::REDIRECT_TEMPORARY);
+                }else{
+                    $this->flash("success", tr("error_article_published"));
+                    $this->redirect("/articles", static::REDIRECT_TEMPORARY);
+                }
             }
+        } else {
+            $this->flashFail("error", "You don't have access to edit or create articles");
         }
     }
 

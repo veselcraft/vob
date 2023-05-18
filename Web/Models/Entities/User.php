@@ -71,4 +71,9 @@ class User extends RowModel
         else
             return "/assets/packages/static/".CHANDLER_ROOT_CONF["rootApp"]."/img/camera_200.png";
     }
+
+    function mayWriteAccessToArticles(): bool
+    {
+        return ($this->getGroup() >= 2) ? true : false;
+    }
 }
