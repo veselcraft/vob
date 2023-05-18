@@ -26,6 +26,11 @@
         {foreach $articles as $article}
             {include "../components/article_card.xml", article => $article}
         {/foreach}
+        {if $count == 0}
+            <div class="alert alert-light">
+                {_alert_empty_articles}
+            </div>
+        {/if}
         </div>
     </dev>
 </dev>

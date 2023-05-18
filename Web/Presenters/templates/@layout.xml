@@ -7,8 +7,9 @@
         <link rel="shortcut icon" href="/assets/packages/static/{php echo CHANDLER_ROOT_CONF["rootApp"]}/img/icon.ico" />
         <meta name="application-name" content="{php echo VOB_ROOT_CONF['vob']['appearance']['name']}" />
         <meta n:ifset="$csrfToken" name="csrf" value="{$csrfToken}" />
-        <link rel="stylesheet" href="/assets/packages/static/{php echo CHANDLER_ROOT_CONF["rootApp"]}/js/node_modules/bootstrap/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/assets/packages/static/{php echo CHANDLER_ROOT_CONF["rootApp"]}/css/index.css">
+        {css "js/node_modules/bootstrap/dist/css/bootstrap.min.css"}
+        {css "js/node_modules/viewerjs/dist/viewer.min.css"}
+        {css "css/index.css"}
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta property="og:site_name" content="{php echo VOB_ROOT_CONF['vob']['appearance']['name']}">
         {ifset og-title}
@@ -114,9 +115,10 @@
                 </div>
             </div>
         </div>
-        <script src="/assets/packages/static/{php echo CHANDLER_ROOT_CONF["rootApp"]}/js/node_modules/jquery/dist/jquery.min.js"></script>
-        <script src="/assets/packages/static/{php echo CHANDLER_ROOT_CONF["rootApp"]}/js/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="/assets/packages/static/{php echo CHANDLER_ROOT_CONF["rootApp"]}/js/main.js"></script>
+        {script "js/node_modules/jquery/dist/jquery.min.js"}
+        {script "js/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"}
+        {script "js/node_modules/viewerjs/dist/viewer.min.js"}
+        {script "js/main.js"}
         {ifset footerScripts}{include footerScripts}{/ifset}
     </body>
 </html>

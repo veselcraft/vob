@@ -1,5 +1,8 @@
 <?php declare(strict_types=1);
 namespace vob\Web\Presenters;
+use Nette\InvalidStateException as ISE;
+use Nette\Utils\Image;
+use vob\Web\Models\Entities\Utils\Media;
 
 final class BlobPresenter extends VOBPresenter
 {
@@ -12,6 +15,15 @@ final class BlobPresenter extends VOBPresenter
         }
         
         return $dir;
+    }
+
+    protected function pathFromHash(string $hash): string
+    {
+        $dir = (new Media)->getBaseDir() . substr($hash, 0, 2);
+        if(!is_dir($dir))
+            mkdir($dir);
+        
+        return "$dir/$hash.jpg";
     }
     
     function renderFile(/*string*/ $dir, string $name, string $format)
@@ -31,6 +43,39 @@ final class BlobPresenter extends VOBPresenter
             
             readfile($path);
             exit;
+        }
+    }
+
+    function renderUploadFile()
+    {
+        // TODO: Implement role checking
+
+        $this->assertUserLoggedIn();
+    
+        if($_SERVER["REQUEST_METHOD"] === "POST") {
+            if(!isset($_FILES["blob"]))
+                throw new ISE("Не выбран файл");
+
+            if($_FILES["blob"]["error"] == 1)
+                throw new ISE("Файл повреждён");
+
+            bdump($_FILES["blob"]);
+
+            $hash = hash_file("whirlpool", $_FILES["blob"]['tmp_name']);
+            
+            $image = new \Imagick;
+            $image->readImage($_FILES["blob"]['tmp_name']);
+            $h = $image->getImageHeight();
+            $w = $image->getImageWidth();
+            if(($h >= ($w * 7)) || ($w >= ($h * 7)))
+                throw new ISE("Invalid layout: image is too wide/short");
+            $sizes = Image::calculateSize(
+                $image->getImageWidth(), $image->getImageHeight(), 8192, 4320, Image::SHRINK_ONLY | Image::FIT
+            );
+
+            $image->resizeImage($sizes[0], $sizes[1], \Imagick::FILTER_HERMITE, 1);
+            $image->writeImage($this->pathFromHash($hash));
+            exit((new Media)->getURL($hash, "jpg"));
         }
     }
 }

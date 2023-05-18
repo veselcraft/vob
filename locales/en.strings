@@ -10,13 +10,13 @@
 "time_today" = "today";
 "time_yesterday" = "yesterday";
 
-
 %{ Header %}
 "home" = "Home";
 "search" = "Search";
 "articles" = "Articles";
 "notifications" = "Notifications";
 "sign_in" = "Sign in";
+"sign_up" = "Register";
 
 %{ User Header menu %}
 "profile" = "Profile";
@@ -26,7 +26,7 @@
 "log_out" = "Log out";
 
 %{ Footer %}
-"language" = "Language";
+"language" = "UI Language";
 
 %{ User Page %}
 "group_user" = "User";
@@ -51,7 +51,10 @@
 "error_user_registred" = "User with this Email is already exist";
 
 %{ Alerts %}
-"alert_no_one_published" = "Nobody has left a comment yet.";
+"alert_empty_comments" = "Nobody has left a comment yet.";
+"alert_empty_articles" = "This user has no written articles yet.";
+"alert_empty_drafts" = "You have no drafts.";
+"alert_empty_generic" = "There is no data.";
 "alert_this_is_draft" = "This article is a draft. Nobody sees her, except you.";
 "alert_article_published_this_is_draft" = "Article is saved in your drafts. Nobody have access to it, expect you.";
 "alert_comment_published" = "Your comment was been published.";
@@ -70,3 +73,8 @@
 "publish" = "Publish";
 "save_in_drafts" = "Save in drafts";
 "article_title" = "Article title";
+"picture_upload" = "Upload picture";
+"picture_upload_button" = "Upload and insert to editor";
+
+%{ General %}
+"loading" = "Loading";

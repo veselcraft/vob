@@ -27,3 +27,5 @@ routes:
       handler: "Search->index"
     - url: "/blob_{text}/{text}.{text}"
       handler: "Blob->file"
+    - url: "/blob/upload"
+      handler: "Blob->uploadFIle"

@@ -5,3 +5,11 @@
 .row-fix {
     margin: 0;
 }
+
+#article-content p img {
+	display: block;
+	margin: 0 auto;
+	max-height: 500px;
+	max-width: 100%;
+	cursor: zoom-in;
+}

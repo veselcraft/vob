@@ -26,7 +26,7 @@
 "log_out" = "Выйти";
 
 %{ Footer %}
-"language" = "Язык";
+"language" = "Язык интерфейса";
 
 %{ User Page %}
 "group_user" = "Пользователь";
@@ -51,7 +51,10 @@
 "error_user_registred" = "Пользователь с таким Email уже зарегистрирован";
 
 %{ Alerts %}
-"alert_no_one_published" = "Никто пока ещё не оставил комментарий.";
+"alert_empty_comments" = "Никто пока ещё не оставил комментарий.";
+"alert_empty_articles" = "Этот пользователь ещё не писал никаких статей.";
+"alert_empty_drafts" = "У вас нет никаких черновиков.";
+"alert_empty_generic" = "There is no data.";
 "alert_this_is_draft" = "Эта статья является черновиком. Её, кроме вас, никто не видит.";
 "alert_article_published_this_is_draft" = "Статья сохранена в ваши черновики. Никто, кроме вас, не имеет доступа к ней.";
 "alert_comment_published" = "Комментарий опубликован.";
@@ -70,3 +73,8 @@
 "publish" = "Опубликовать";
 "save_in_drafts" = "Сохранить в черновиках";
 "article_title" = "Название статьи";
+"picture_upload" = "Загрузка изображений";
+"picture_upload_button" = "Загрузить и вставить в редактор";
+
+%{ General %}
+"loading" = "Загрузка";

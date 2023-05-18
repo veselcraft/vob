@@ -18,6 +18,12 @@
                 <textarea id="editor" rows="20" name="content">{ifset $art_content}{$art_content}{/ifset}</textarea>
             </div>
             <div class="form-group">
+                <label for="title">{_picture_upload}</label><br>
+                <input type="file" id="blob_file" name="blob" accept="image/*"><br>
+                <a class="btn btn-outline-primary me-2" id="upload_picture">{_picture_upload_button}</a>
+                <div class="spinner-border" role="status" id="blob_spinner" style="display:none;"></div>
+            </div>
+            <div class="form-group">
                 {ifset $id}<span class="badge bg-danger text-white">{_edit}</span>{/ifset}
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="draft" value="1">
@@ -51,5 +57,33 @@
 
 <script>
 $("#editor").markdownEditor();
+
+$("#upload_picture").on("click", () => {
+    var formData = new FormData();
+    formData.append('blob', $("#blob_file")[0].files[0]);
+
+    $("#blob_spinner").show();
+
+    $.ajax({
+        type: "POST",
+        url: '/blob/upload',
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: formData,
+        dataType : 'html',
+        success: function(msg){
+            let regexp = /(?:(?:http|https)\:\/\/[\W\d.\-]+)(\/.+)/g;
+            let returnValue = [...msg.matchAll(regexp)][0][1];
+
+            var curPos =  document.getElementById("editor").selectionStart;
+            console.log(curPos);
+            let editor = $('#editor').val();
+            let text_to_insert = "\n\n![](" + returnValue + ")\n\n";
+            $("#editor").val(editor.slice(0, curPos) + text_to_insert + editor.slice(curPos));
+            $("#blob_spinner").hide()
+        }
+    });
+});
 </script>
 {/block}
