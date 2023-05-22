@@ -1,16 +1,20 @@
+{var $space = 3}
+{var $pageCount = ceil($conf->count / $conf->perPage)}
 
 <div n:if="!($conf->page === 1 && $conf->count <= $conf->perPage)" class="hero py-4">
     <div class="container">
-        <center>
-            <a n:if="$conf->page != 1"
-            href="?{http_build_query(array_merge($_GET, ['p' => ($conf->page - 1)]), 'k', '&', PHP_QUERY_RFC3986)}"
-            style="float: left;" class="btn btn-link">&lt;&lt; {_paginator_back}</a>
-            
-            {tr("paginator_page", $conf->page)}
-            
-            <a n:if="$conf->count > (($conf->page - 1) * $conf->perPage + $conf->amount) && $conf->amount > 0"
-            href="?{http_build_query(array_merge($_GET, ['p' => ($conf->page + 1)]), 'k', '&', PHP_QUERY_RFC3986)}"
-            style="float: right;" class="btn btn-link">{_paginator_next} &gt;&gt;</a>
-        </center>
+        <ul class="pagination">
+            <li n:class="$conf->page === 1 ? active, page-item">
+                <a n:if="$conf->page > $space" class="page-link" href="?{http_build_query(array_merge($_GET, ['p' => 1]), 'k', '&', PHP_QUERY_RFC3986)}">&laquo;</a>
+            </li>
+            {for $j = $conf->page - ($space-1); $j <= $conf->page + ($space-1); $j++}
+            <li n:class="$conf->page === $j ? active, page-item" n:if="$j > 0 && $j <= $pageCount">
+                <a class="page-link" href="?{http_build_query(array_merge($_GET, ['p' => $j]), 'k', '&', PHP_QUERY_RFC3986)}">{$j}</a>
+            </li>
+            {/for}
+            <li n:class="$conf->page === $pageCount ? active, page-item">
+                <a n:if="$conf->page <= $pageCount-$space" class="page-link" href="?{http_build_query(array_merge($_GET, ['p' => $pageCount]), 'k', '&', PHP_QUERY_RFC3986)}">&raquo;</a>
+            </li>
+        </ul>
     </div>
 </div>

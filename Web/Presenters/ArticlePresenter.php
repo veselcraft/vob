@@ -43,37 +43,7 @@ final class ArticlePresenter extends VOBPresenter
             $this->template->author = (new Users)->get($article->getUserId());
             $this->template->art_content = (new Parsedown())->text($article->getContent());
 
-            /* Preview stuff */
-
-            $hash = md5($article->getTitle() 
-            . "vob" 
-            . $article->getId() 
-            . VOB_ROOT_CONF['vob']['preview']['logo_url'] 
-            . VOB_ROOT_CONF['vob']['appearance']['name']);
-
-
-            if(empty($article->getPreview()) || $article->getPreview() != $hash) {
-                // TODO: Parse dir to choose random image
-                $previewColors = array("red", "green", "blue");
-                $preview = Image::fromFile(VOB_ROOT . "/Web/static/img/preview/" . $previewColors[array_rand($previewColors)] . ".png");
-                $logo = Image::fromFile(VOB_ROOT . "/Web/static" . VOB_ROOT_CONF['vob']['preview']['logo_url']);
-                
-                $preview->filledRectangle(0, 0, 156, 136, Image::rgb(255, 255, 255, 127));
-                $logo->resize(75, 75);
-                $preview->place($logo, 50, 50);
-
-                $white = $preview->colorAllocate(255, 255, 255);
-                $font = VOB_ROOT . "/Web/static" . VOB_ROOT_CONF['vob']['preview']['font_url'];
-
-                $preview->ttfText(24, 0, 175, 100, $white, $font, VOB_ROOT_CONF['vob']['appearance']['name']);
-                $preview->ttfText(46, 0, 45, 230, $white, $font, wordwrap($article->getTitle(), 25));
-                $preview->save(Media::pathFromHash($hash, "jpg"));
-
-                $article->setPreview($hash);
-                $article->save();
-            }
-
-            $this->template->preview = Media::getURL($hash, "jpg");
+            $this->template->preview = Media::getURL($article->getPreview(), "jpg");
             $this->template->usersRepo = (new Users);
 
             $this->template->commentsCount = (new Comments)->getCommentsCountByTarget($article->getId());
@@ -157,6 +127,69 @@ final class ArticlePresenter extends VOBPresenter
                     $article->setDraft(1);
                 else
                     $article->setDraft(0);
+
+                /* Preview stuff */
+
+                $hash = md5($this->postParam("title") 
+                . "vob" 
+                . time()
+                . VOB_ROOT_CONF['vob']['preview']['logo_url'] 
+                . VOB_ROOT_CONF['vob']['appearance']['name']);
+
+                /* I don't really sure why i need to hash this not randomly, but for now i'll leave it as-is */
+
+                $articleImages = array();
+                $imageParsing = array();
+                preg_match_all('/!\[.{0,}\]\((.+)\)/', $this->postParam("content"), $articleImages);
+
+                $isPic = false;
+
+                if(!empty($articleImages[1][0]) && preg_match('/\/blob_([a-z0-9]{2})\/(.+)\.([a-zA-Z0-9]{3,})/', $articleImages[1][0], $imageParsing) == 1) {
+                    $preview = Image::fromFile(VOB_ROOT . "/storage/".$imageParsing[1]."/".$imageParsing[2].".".$imageParsing[3]);
+                    $imgWidth = $preview->getWidth();
+                    $imgHeight = $preview->getHeight();
+
+                    $neededWidth = 800;
+                    $neededHeight = 500;
+                    
+                    $scaleWidth = $neededWidth / $imgWidth;
+                    $scaleHeight = $neededHeight / $imgHeight;
+
+                    $scale = min($scaleWidth, $scaleHeight);
+
+                    if($imgHeight * $scale < $neededHeight) {
+                        $preview->resize(null, $neededHeight);
+                        $preview->crop(intval(($preview->getWidth() - $neededWidth) / 2), 0, $neededWidth, $neededHeight);
+                    } else if ($imgWidth * $scale < $neededWidth) {
+                        $preview->resize($neededWidth, null);
+                        $preview->crop(0, intval(($preview->getHeight() - $neededHeight) / 2), $neededWidth, $neededHeight);
+                    }
+
+                    $isPic = true;
+                } else {
+                    $previewColors = array("red", "green", "blue");
+                    $preview = Image::fromFile(VOB_ROOT . "/Web/static/img/preview/" . $previewColors[array_rand($previewColors)] . ".png");
+                }
+
+                $preview->save(Media::pathFromHash($hash."_NOTEXT", "jpg"));
+
+                if($isPic) {
+                    $preview->filledRectangle(0, 0, $neededWidth, $neededHeight, Image::rgb(0, 0, 0, 63));
+                }
+                
+                $logo = Image::fromFile(VOB_ROOT . "/Web/static" . VOB_ROOT_CONF['vob']['preview']['logo_url']);
+                
+                $logo->resize(75, 75);
+                $preview->place($logo, 50, 50);
+
+                $white = $preview->colorAllocate(255, 255, 255);
+                $font = VOB_ROOT . "/Web/static" . VOB_ROOT_CONF['vob']['preview']['font_url'];
+
+                $preview->ttfText(24, 0, 175, 100, $white, $font, VOB_ROOT_CONF['vob']['appearance']['name']);
+                $preview->ttfText(46, 0, 45, 230, $white, $font, wordwrap($this->postParam("title"), 30));
+                $preview->save(Media::pathFromHash($hash, "jpg"));
+
+                $article->setPreview($hash);
                 
                 $article->save();
                 

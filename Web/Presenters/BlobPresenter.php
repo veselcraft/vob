@@ -48,8 +48,6 @@ final class BlobPresenter extends VOBPresenter
 
     function renderUploadFile()
     {
-        // TODO: Implement role checking
-
         $this->assertUserLoggedIn();
     
         if($this->user->identity->mayWriteAccessToArticles()) {

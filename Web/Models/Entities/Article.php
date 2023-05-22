@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 namespace vob\Web\Models\Entities;
 use vob\Web\Models\RowModel;
+use vob\Web\Models\Entities\Utils\Media;
 use vob\Web\Models\Repositories\Users;
 use vob\Web\Util\DateTime;
 use Nette\Database\Table\ActiveRow;
@@ -53,5 +54,15 @@ class Article extends RowModel
     function getPreview(): string
     {
         return $this->getRecord()->preview;
+    }
+
+    function getPreviewURL(): string
+    {
+        return Media::getURL($this->getRecord()->preview, "jpg");
+    }
+
+    function getPreviewURLNoText(): string
+    {
+        return Media::getURL($this->getRecord()->preview."_NOTEXT", "jpg");
     }
 }

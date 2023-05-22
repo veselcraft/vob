@@ -1,9 +1,10 @@
 <div class="col-md-4 mb-3">
     <div class="card">
+        <img src="{$article->getPreviewURLNoText()}" class="card-img-top" alt="{$article->getTitle()}"></img>
         <div class="card-body">
             <h5 class="card-title">{$article->getTitle()}</h5>
             <h6 class="card-subtitle mb-2 text-muted">{$article->getPublishDate()}</h6>
-            <a href="/a{$article->getId()}" class="card-link float-right">{_read}</a>
+            <a href="/a{$article->getId()}" class="stretched-link card-link float-right">{_read}</a>
         </div>
     </div>
 </div>

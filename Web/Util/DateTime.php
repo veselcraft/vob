@@ -25,17 +25,17 @@ class DateTime
         
         if($this->timestamp >= strtotime("midnight")) { # Today
             if($diff->h >= 1)
-                return tr("time_today") . tr("time_at_sp") . strftime_safe("%X", $this->timestamp);
+                return tr("time_today") . tr("time_at_sp") . strftime_safe(" %R %p", $this->timestamp);
             else if($diff->i < 2)
                 return tr("time_just_now");
             else
                 return $diff->i === 5 ? tr("time_exactly_five_minutes_ago") : tr("time_minutes_ago", $diff->i);
         } else if($this->timestamp >= strtotime("-1day midnight")) { # Yesterday
-            return tr("time_yesterday") . tr("time_at_sp") . strftime_safe("%X", $this->timestamp);
+            return tr("time_yesterday") . tr("time_at_sp") . strftime_safe(" %R %p", $this->timestamp);
         } else if(strftime_safe("%G", $this->timestamp) === strftime_safe("%G")) { # In this year
             return strftime_safe("%e %h ", $this->timestamp) . tr("time_at_sp") . strftime_safe(" %R %p", $this->timestamp);
         } else {
-            return strftime_safe("%e %B %G ", $this->timestamp) . tr("time_at_sp") . strftime_safe(" %X", $this->timestamp);
+            return strftime_safe("%e %B %G ", $this->timestamp) . tr("time_at_sp") . strftime_safe(" %R %p", $this->timestamp);
         }
     }
     
