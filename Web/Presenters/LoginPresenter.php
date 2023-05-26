@@ -40,6 +40,9 @@ final class LoginPresenter extends VOBPresenter
         if(!is_null($this->user))
             $this->redirect("/", static::REDIRECT_TEMPORARY);
 
+        if(VOB_ROOT_CONF['vob']['preferences']['disableRegistrations'] == true)
+            $this->flashFail("danger", tr("error_not_allowed_for_registrations"));
+
         $this->assertCaptchaCheckPassed();
         
         if($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -48,7 +51,7 @@ final class LoginPresenter extends VOBPresenter
             
             $chUser = ChandlerUser::create($this->postParam("email"), $this->postParam("password"));
             if(!$chUser)
-                $this->flashFail("danger", "User with this Email are already exist.");
+                $this->flashFail("danger", tr("error_user_registred"));
 
             $user = new User;
             $user->setUser($chUser->getId());
@@ -58,7 +61,7 @@ final class LoginPresenter extends VOBPresenter
             $user->save();
             
             $this->authenticator->authenticate($chUser->getId());
-            $this->flash("success", "Registration is done!");
+            $this->flash("success", tr("alert_registred"));
             $this->redirect("/", static::REDIRECT_TEMPORARY);
         }
     }

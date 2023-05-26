@@ -32,6 +32,7 @@
 "group_user" = "User";
 "group_moderator" = "Moderator";
 "group_editor" = "Editor";
+"email" = "E-mail";
 
 %{ Login Page %}
 "name" = "Name";
@@ -49,6 +50,7 @@
 "error_limit" = "Limit was exceeded.";
 "error_email_not_correct" = "Incorrect Email";
 "error_user_registred" = "User with this Email is already exist";
+"error_not_allowed_for_registrations" = "Registrations is currently not allowed";
 
 %{ Alerts %}
 "alert_empty_comments" = "Nobody has left a comment yet.";
@@ -58,6 +60,7 @@
 "alert_this_is_draft" = "This article is a draft. Nobody sees her, except you.";
 "alert_article_published_this_is_draft" = "Article is saved in your drafts. Nobody have access to it, expect you.";
 "alert_comment_published" = "Your comment was been published.";
+"alert_registred" = "You are successfull registred!";
 
 %{ Paginator %}
 "paginator_back" = "Back";

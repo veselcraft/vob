@@ -9,6 +9,7 @@ vob:
         comments_enabled: true
         comments_symbols_limit: 280
         badgemode: false
+        disableRegistrations: false
         header:
             links:
                 - url: "https://youtube.com/veselcraft"

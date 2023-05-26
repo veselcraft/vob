@@ -79,7 +79,7 @@
                             </div>
                         {else}
                             <a href="/login" class="btn btn-outline-primary mr-2">{_sign_in}</a>
-                            <a href="/reg" class="btn btn-primary">{_sign_up}</a>
+                            <a href="/reg" class="btn btn-primary" n:if="!VOB_ROOT_CONF['vob']['preferences']['disableRegistrations']">{_sign_up}</a>
                         {/ifset}
                     </div>
                 </div>

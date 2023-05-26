@@ -6,8 +6,8 @@
 <div class="hero py-4">
     <div class="container">
         <form class="form-inline mx-auto" style="width: max-content;">
-            <input class="form-control mr-sm-2" name="query" type="text" placeholder="Search" value="{$query}">
-            <input class="form-control my-2 my-sm-0 btn-primary" type="submit" class="button" value="Search">
+            <input class="form-control mr-sm-2" name="query" type="text" placeholder="{_search}" value="{$query}">
+            <input class="form-control my-2 my-sm-0 btn-primary" type="submit" class="button" value="{_search}">
         </form>
     </div>
 </div>

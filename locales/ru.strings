@@ -37,6 +37,7 @@
 "name" = "Имя";
 "password" = "Пароль";
 "password_again" = "Ещё раз пароль";
+"email" = "Электронная почта";
 
 %{ Errors %}
 "error_title_empty" = "Название не может быть пустым.";
@@ -49,6 +50,7 @@
 "error_limit" = "Превышен лимит.";
 "error_email_not_correct" = "Некорректный Email";
 "error_user_registred" = "Пользователь с таким Email уже зарегистрирован";
+"error_not_allowed_for_registrations" = "Регистрация в данный момент отключена";
 
 %{ Alerts %}
 "alert_empty_comments" = "Никто пока ещё не оставил комментарий.";
@@ -58,6 +60,7 @@
 "alert_this_is_draft" = "Эта статья является черновиком. Её, кроме вас, никто не видит.";
 "alert_article_published_this_is_draft" = "Статья сохранена в ваши черновики. Никто, кроме вас, не имеет доступа к ней.";
 "alert_comment_published" = "Комментарий опубликован.";
+"alert_registred" = "Вы успешно зарегистрировались!";
 
 %{ Paginator %}
 "paginator_back" = "Назад";
